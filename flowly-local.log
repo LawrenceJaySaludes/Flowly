@@ -1,0 +1,12 @@
+
+> flowly@1.0.0 start
+> node scripts/start-local.js
+
+Starting Flowly for local network access...
+Expo port: 8081
+Use Expo Go on the same Wi-Fi network, or switch to `npm run phone` if local access fails.
+Starting project at C:\Users\Administrator\Documents\Flowly
+Starting Metro Bundler
+warning: Bundler cache is empty, rebuilding (this may take a minute)
+Waiting on http://localhost:8081
+Logs for your project will appear below.

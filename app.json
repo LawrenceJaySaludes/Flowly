@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Flowly",
-    "slug": "Flowly",
+    "slug": "flowly",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,11 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "@react-native-community/datetimepicker"
+    ]
   }
 }

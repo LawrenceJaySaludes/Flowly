@@ -1,0 +1,18 @@
+
+> flowly@1.0.0 phone
+> node scripts/start-phone.js
+
+Starting Flowly for phone access through Expo tunnel...
+Expo port: 8081
+Starting project at C:\Users\Administrator\Documents\Flowly
+Starting Metro Bundler
+warning: Bundler cache is empty, rebuilding (this may take a minute)
+Tunnel connected.
+Tunnel ready.
+
+Phone link:
+exp://nxkj--i-anonymous-8081.exp.direct
+
+Open that link on your iPhone using Expo Go if QR scanning still fails.
+Waiting on http://localhost:8081
+Logs for your project will appear below.
