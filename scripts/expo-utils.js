@@ -1,5 +1,6 @@
 const fs = require("fs");
 const net = require("net");
+const os = require("os");
 const path = require("path");
 const { spawn, spawnSync } = require("child_process");
 
@@ -10,6 +11,10 @@ const portStatePath = path.join(expoStateDir, "flowly-port.json");
 
 function escapeForSingleQuotes(value) {
   return value.replace(/'/g, "''");
+}
+
+function sleep(timeoutMs) {
+  return new Promise((resolve) => setTimeout(resolve, timeoutMs));
 }
 
 function stopExpoProcesses() {
@@ -40,17 +45,62 @@ function getExpoCommand() {
   return process.platform === "win32" ? "npx.cmd" : "npx";
 }
 
-function spawnExpo(args) {
+function isPrivateIpv4(address) {
+  return (
+    address.startsWith("10.") ||
+    address.startsWith("192.168.") ||
+    /^172\.(1[6-9]|2\d|3[0-1])\./.test(address)
+  );
+}
+
+function getPreferredLanIp() {
+  const interfaces = os.networkInterfaces();
+  const candidates = [];
+
+  for (const addresses of Object.values(interfaces)) {
+    for (const addressInfo of addresses || []) {
+      const family =
+        typeof addressInfo.family === "string"
+          ? addressInfo.family
+          : addressInfo.family === 4
+            ? "IPv4"
+            : "";
+
+      if (
+        family === "IPv4" &&
+        !addressInfo.internal &&
+        isPrivateIpv4(addressInfo.address)
+      ) {
+        candidates.push(addressInfo.address);
+      }
+    }
+  }
+
+  return candidates[0] || null;
+}
+
+function spawnExpo(args, options = {}) {
+  const env = {
+    ...process.env,
+    ...(options.env || {}),
+  };
+
   if (process.platform === "win32") {
-    return spawn("cmd.exe", ["/c", getExpoCommand(), "expo", "start", ...args], {
-      cwd: projectRoot,
-      stdio: "inherit",
-      shell: false,
-    });
+    return spawn(
+      "cmd.exe",
+      ["/c", getExpoCommand(), "expo", "start", ...args],
+      {
+        cwd: projectRoot,
+        env,
+        stdio: "inherit",
+        shell: false,
+      },
+    );
   }
 
   return spawn(getExpoCommand(), ["expo", "start", ...args], {
     cwd: projectRoot,
+    env,
     stdio: "inherit",
     shell: false,
   });
@@ -105,25 +155,38 @@ function readLastPort() {
 
 async function waitForManifest(port = defaultPort, timeoutMs = 90000) {
   const startedAt = Date.now();
+  const manifestUrl = `http://127.0.0.1:${port}/?platform=ios`;
 
   while (Date.now() - startedAt < timeoutMs) {
     try {
-      const response = await fetch(`http://127.0.0.1:${port}`);
+      const response = await fetch(manifestUrl, {
+        headers: {
+          accept: "application/expo+json,application/json,*/*",
+        },
+      });
 
-      if (response.ok) {
+      if (
+        response.ok &&
+        response.headers.get("content-type")?.includes("application/expo+json")
+      ) {
         return response.json();
       }
     } catch (error) {
       // Expo is still starting up, so keep polling.
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await sleep(1000);
   }
 
-  throw new Error(`Expo did not become ready on port ${port} within ${timeoutMs / 1000}s.`);
+  throw new Error(
+    `Expo did not become ready on port ${port} within ${timeoutMs / 1000}s.`,
+  );
 }
 
-async function getExpoHostUri(port = readLastPort() || defaultPort, timeoutMs = 15000) {
+async function getExpoHostUri(
+  port = readLastPort() || defaultPort,
+  timeoutMs = 15000,
+) {
   const manifest = await waitForManifest(port, timeoutMs);
   return manifest?.extra?.expoClient?.hostUri || null;
 }
@@ -131,9 +194,11 @@ async function getExpoHostUri(port = readLastPort() || defaultPort, timeoutMs = 
 module.exports = {
   defaultPort,
   findFreePort,
+  getPreferredLanIp,
   getExpoHostUri,
   readLastPort,
   saveLastPort,
+  sleep,
   spawnExpo,
   stopExpoProcesses,
   waitForManifest,

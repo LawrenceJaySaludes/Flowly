@@ -3,13 +3,17 @@ const path = require("path");
 const QRCode = require("qrcode");
 const { defaultPort, getExpoHostUri, readLastPort } = require("./expo-utils");
 
-const port = process.env.EXPO_PORT || process.argv[2] || readLastPort() || defaultPort;
+const port =
+  process.env.EXPO_PORT || process.argv[2] || readLastPort() || defaultPort;
+const manifestTimeoutMs = 120000;
 
 async function generatePhoneQrPage() {
-  const hostUri = await getExpoHostUri(port);
+  const hostUri = await getExpoHostUri(port, manifestTimeoutMs);
 
   if (!hostUri) {
-    throw new Error("Could not find Expo Go hostUri. Start Expo with `npm run phone` first.");
+    throw new Error(
+      "Could not find Expo Go hostUri. Start Expo with `npm run phone` first.",
+    );
   }
 
   const expoLink = `exp://${hostUri}`;
@@ -83,7 +87,7 @@ async function generatePhoneQrPage() {
     </div>
   </body>
 </html>`,
-    "utf8"
+    "utf8",
   );
 
   console.log(`QR page created: ${outputPath}`);
