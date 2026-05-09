@@ -1,0 +1,50 @@
+import { useLocation, useNavigate } from 'react-router-dom'
+
+const navItems = [
+  { path: '/', label: 'Dashboard', icon: '🏠' },
+  { path: '/add', label: '', icon: '+' },
+  { path: '/transactions', label: 'History', icon: '📋' },
+]
+
+function BottomNav() {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white">
+      <div className="mx-auto flex max-w-[420px] items-center justify-around py-2">
+        {navItems.map((item) => {
+          if (item.icon === '+') {
+            return (
+              <button
+                key={item.path}
+                onClick={() => navigate(item.path)}
+                className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-emerald-500 text-2xl font-light text-white shadow-md transition hover:scale-105 hover:shadow-lg active:scale-95"
+                aria-label="Add transaction"
+              >
+                +
+              </button>
+            )
+          }
+
+          const isActive = pathname === item.path
+          return (
+            <button
+              key={item.path}
+              onClick={() => navigate(item.path)}
+              className={[
+                'flex flex-col items-center gap-1 px-4 py-2 text-xs font-medium transition',
+                isActive ? 'text-primary' : 'text-textSecondary hover:text-textPrimary',
+              ].join(' ')}
+            >
+              <span className="text-lg">{item.icon}</span>
+              {item.label}
+            </button>
+          )
+        })}
+      </div>
+    </nav>
+  )
+}
+
+export default BottomNav
