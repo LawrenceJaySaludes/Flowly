@@ -1,10 +1,4 @@
-function formatCurrency(value) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 2,
-  }).format(value)
-}
+import { formatCurrency } from '../utils/formatCurrency.js'
 
 function BalanceCard({ totalBalance, totalIncome, totalExpense }) {
   const isZeroBalance = totalBalance === 0

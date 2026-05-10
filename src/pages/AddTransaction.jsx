@@ -18,7 +18,7 @@ function AddTransaction() {
   const totalBalance = totalIncome - totalExpense
   const isZeroBalance = totalBalance === 0
 
-  const [type, setType] = useState('expense')
+  const [type, setType] = useState('income')
 
   useEffect(() => {
     if (isZeroBalance) {
@@ -130,7 +130,7 @@ function AddTransaction() {
                     : 'bg-slate-100 text-textSecondary hover:bg-slate-200',
                 ].join(' ')}
               >
-                ${value}
+                {'\u20B1'}{value}
               </button>
             ))}
           </div>
