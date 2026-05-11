@@ -5,6 +5,7 @@ const TransactionContext = createContext()
 
 export function TransactionProvider({ children }) {
   const [transactions, setTransactions] = useState([])
+  const [showBalance, setShowBalance] = useState(true)
 
   useEffect(() => {
     supabase
@@ -20,12 +21,20 @@ export function TransactionProvider({ children }) {
     setTransactions((prev) => [transaction, ...prev])
   }, [])
 
+  const removeTransaction = useCallback((id) => {
+    setTransactions((prev) => prev.filter((t) => t.id !== id))
+  }, [])
+
   const resetTransactions = useCallback(() => {
     setTransactions([])
   }, [])
 
+  const toggleBalance = useCallback(() => {
+    setShowBalance((prev) => !prev)
+  }, [])
+
   return (
-    <TransactionContext.Provider value={{ transactions, addTransaction, resetTransactions }}>
+    <TransactionContext.Provider value={{ transactions, showBalance, toggleBalance, addTransaction, removeTransaction, resetTransactions }}>
       {children}
     </TransactionContext.Provider>
   )

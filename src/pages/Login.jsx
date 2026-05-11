@@ -10,8 +10,8 @@ function Login() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[420px] items-center px-4 py-8">
       <section className="card-surface w-full p-7 text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Flowly</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-textPrimary">Flowly</h1>
+        <img src="/flowly.svg" alt="Flowly" className="mx-auto mb-4 h-16 w-auto" />
+        <h1 className="text-3xl font-semibold tracking-tight text-textPrimary">Personal Finance Tracker</h1>
         <p className="mt-2 text-sm text-textSecondary">Track your money, effortlessly</p>
 
         <button
@@ -19,8 +19,8 @@ function Login() {
           onClick={handleGoogleLogin}
           className="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-textPrimary transition hover:bg-slate-50"
         >
-          <span className="text-base text-primary">G</span>
-          Continue with Google
+          <i className="bi bi-google text-base text-primary"></i>
+            Continue with Google
         </button>
       </section>
     </div>

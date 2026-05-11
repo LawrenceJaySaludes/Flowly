@@ -69,7 +69,7 @@ function Settings() {
 
         <button
           onClick={handleReset}
-          className="w-full rounded-xl bg-yellow-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-yellow-600"
+          className="w-full rounded-xl bg-slate-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-600"
         >
           Reset All Transactions
         </button>
@@ -80,6 +80,19 @@ function Settings() {
         >
           Logout
         </button>
+      </div>
+
+      <div className="card-surface space-y-2 p-5 text-center text-xs text-textSecondary">
+        <img src="/flowly.svg" alt="Flowly" className="mx-auto mb-2 h-10 w-auto" />
+        <p className="font-semibold text-textPrimary">Terms & Conditions</p>
+        <p>
+          By using this app, you agree to track your personal finances at your own risk.
+          All data is stored securely via Supabase and is only accessible to you.
+          We do not share your financial data with third parties.
+        </p>
+        <p className="pt-2 text-textPrimary/60">
+          &copy; {new Date().getFullYear()} Lawrence Jay Saludes. All rights reserved.
+        </p>
       </div>
     </section>
   )

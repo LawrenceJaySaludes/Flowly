@@ -8,20 +8,40 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg'],
+      includeAssets: ['flowly.svg', 'icons/*.png'],
       manifest: {
         name: 'Flowly',
         short_name: 'Flowly',
+        description: 'Personal Finance Tracker',
         theme_color: '#22C55E',
         background_color: '#FDFCFB',
         display: 'standalone',
         start_url: '/',
+        scope: '/',
         icons: [
           {
-            src: '/favicon.svg',
+            src: '/flowly.svg',
             sizes: 'any',
             type: 'image/svg+xml',
             purpose: 'any',
+          },
+          {
+            src: '/icons/pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/icons/pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/icons/pwa-512x512-maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
           },
         ],
       },

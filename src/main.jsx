@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { registerSW } from 'virtual:pwa-register'
 import '@fontsource-variable/manrope/wght.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import './styles/globals.css'
 import App from './App.jsx'
 

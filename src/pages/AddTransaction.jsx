@@ -19,6 +19,10 @@ function AddTransaction() {
   const isZeroBalance = totalBalance === 0
 
   const [type, setType] = useState('income')
+  const inputClass =
+    type === 'income'
+      ? 'w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-textPrimary outline-none ring-income transition focus:ring-2 hover:border-income'
+      : 'w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-textPrimary outline-none ring-expense transition focus:ring-2 hover:border-expense'
 
   useEffect(() => {
     if (isZeroBalance) {
@@ -115,7 +119,7 @@ function AddTransaction() {
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
             placeholder="0.00"
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-textPrimary outline-none ring-primary transition focus:ring-2"
+            className={inputClass}
           />
           <div className="mt-2 flex gap-2">
             {[50, 100, 500, 1000].map((value) => (
@@ -147,7 +151,7 @@ function AddTransaction() {
                 value={category}
                 onChange={(event) => setCategory(event.target.value)}
                 placeholder="Enter custom category"
-                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-textPrimary outline-none ring-primary transition focus:ring-2"
+                className={inputClass}
                 autoFocus
               />
               <button
@@ -174,7 +178,7 @@ function AddTransaction() {
                   setCategory(val)
                 }
               }}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-textPrimary outline-none ring-primary transition focus:ring-2"
+              className={inputClass}
             >
               <option value="" disabled>Select a category</option>
               {(type === 'income'
@@ -197,7 +201,7 @@ function AddTransaction() {
             value={note}
             onChange={(event) => setNote(event.target.value)}
             placeholder="Optional details"
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-textPrimary outline-none ring-primary transition focus:ring-2"
+            className={inputClass}
           />
         </div>
 
@@ -210,7 +214,7 @@ function AddTransaction() {
             type="date"
             value={date}
             onChange={(event) => setDate(event.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-textPrimary outline-none ring-primary transition focus:ring-2"
+            className={inputClass}
           />
         </div>
 

@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import { LayoutDashboard, List } from 'lucide-react'
 
 const navItems = [
-  { path: '/', label: 'Dashboard', icon: '🏠' },
+  { path: '/', label: 'Dashboard', Icon: LayoutDashboard },
   { path: '/add', label: '', icon: '+' },
-  { path: '/transactions', label: 'History', icon: '📋' },
+  { path: '/transactions', label: 'History', Icon: List },
 ]
 
 function BottomNav() {
@@ -28,6 +29,7 @@ function BottomNav() {
           }
 
           const isActive = pathname === item.path
+          const Icon = item.Icon
           return (
             <button
               key={item.path}
@@ -37,7 +39,9 @@ function BottomNav() {
                 isActive ? 'text-primary' : 'text-textSecondary hover:text-textPrimary',
               ].join(' ')}
             >
-              <span className="text-lg">{item.icon}</span>
+              <span className="text-lg">
+                <Icon size={22} strokeWidth={1.5} />
+              </span>
               {item.label}
             </button>
           )
