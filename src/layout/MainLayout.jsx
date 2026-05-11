@@ -9,6 +9,8 @@ function MainLayout() {
   const pageTitle =
     pathname === '/' ? 'Dashboard' :
     pathname === '/transactions' ? 'History' :
+    pathname === '/analytics' ? 'Analytics' :
+    pathname === '/reports' ? 'Reports' :
     pathname === '/settings' ? 'Settings' : ''
   const isAddPage = pathname === '/add'
 

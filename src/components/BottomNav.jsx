@@ -1,10 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, List } from 'lucide-react'
+import { LayoutDashboard, List, PieChart, BarChart3 } from 'lucide-react'
 
 const navItems = [
   { path: '/', label: 'Dashboard', Icon: LayoutDashboard },
-  { path: '/add', label: '', icon: '+' },
   { path: '/transactions', label: 'History', Icon: List },
+  { path: '/add', label: '', icon: '+' },
+  { path: '/analytics', label: 'Analytics', Icon: PieChart },
+  { path: '/reports', label: 'Reports', Icon: BarChart3 },
 ]
 
 function BottomNav() {
@@ -13,7 +15,7 @@ function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-[420px] grid-cols-3 items-center py-2">
+      <div className="mx-auto grid max-w-[420px] grid-cols-5 items-center py-2">
         {navItems.map((item) => {
           if (item.icon === '+') {
             return (

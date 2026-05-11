@@ -5,6 +5,8 @@ import MainLayout from './layout/MainLayout.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import AddTransaction from './pages/AddTransaction.jsx'
 import TransactionHistory from './pages/TransactionHistory.jsx'
+import Analytics from './pages/Analytics.jsx'
+import Reports from './pages/Reports.jsx'
 import Settings from './pages/Settings.jsx'
 import Login from './pages/Login.jsx'
 import { supabase } from './lib/supabase.js'
@@ -66,6 +68,8 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="/add" element={<AddTransaction />} />
           <Route path="/transactions" element={<TransactionHistory />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/reports" element={<Reports />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
         <Route path="/login" element={<Navigate to="/" replace />} />
